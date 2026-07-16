@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatChaDa CDO — まっちゃだ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- DESIGN TOKENS --- */
+    :root {
+      --primary-green: #1C3829;     /* Deep Matcha Forest [cite: 30] */
+      --secondary-cream: #F9F6F0;   /* Whipped Milk Cream [cite: 31] */
+      --accent-bamboo: #D4BD96;     /* Bamboo Whisk [cite: 32] */
+      --text-dark: #2C3531;
+      --text-muted: #6E7571;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--secondary-cream); /* [cite: 31] */
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* --- NAVIGATION BAR --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary-green);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      margin-left: 0.5rem;
+      color: var(--accent-bamboo); /* [cite: 32] */
+    }
+
+    nav {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--primary-green);
+    }
+
+    .btn-outline {
+      border: 1.5px solid var(--primary-green);
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--primary-green);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease; /* [cite: 11] */
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary-green); /* [cite: 11] */
+      color: var(--secondary-cream);
+    }
+
+    /* --- HERO CONTAINER --- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr; /* Split-Screen Grid [cite: 34] */
+      min-height: calc(80vh - 80px);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 4rem;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    /* --- LEFT COLUMN: COPY --- */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-bamboo); /* [cite: 32] */
+      font-weight: 600;
+    }
+
+    .headline {
+      font-size: 3.8rem;
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--primary-green);
+      letter-spacing: -1.5px;
+    }
+
+    .headline span {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text-dark);
+    }
+
+    .subheadline {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    /* Price Badge */
+    .price-badge {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(28, 56, 41, 0.05);
+      border-left: 3px solid var(--accent-bamboo); /* [cite: 32] */
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--primary-green);
+      max-width: fit-content;
+      margin: 0.5rem 0;
+    }
+
+    .price-badge strong {
+      font-size: 1.1rem;
+      color: var(--primary-green);
+      margin-left: 0.25rem;
+    }
+
+    /* Action Buttons */
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .btn-solid {
+      background-color: var(--primary-green); /* [cite: 15] */
+      color: var(--secondary-cream); /* [cite: 15] */
+      padding: 1rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(28, 56, 41, 0.15);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .btn-solid:hover {
+      transform: translateY(-2px);
+      background-color: #12251b;
+    }
+
+    .btn-text {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .btn-text:hover {
+      color: var(--primary-green);
+    }
+
+    /* --- RIGHT COLUMN: HERO VISUAL MOCKUP --- */
+    /* Handcrafted SVG/CSS Illustration to perfectly mock up your photoshoot goals */
+    .hero-visual {
+      position: relative;
+      background: #EFEBE4; /* Soft matte background [cite: 35] */
+      border-radius: 24px;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.02);
+    }
+
+    /* The Matcha Latte (Left) [cite: 35] */
+    .cup-container {
+      position: absolute;
+      left: 15%;
+      bottom: 12%;
+      width: 140px;
+      height: 260px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.6);
+      border-radius: 12px 12px 40px 40px;
+      backdrop-filter: blur(5px);
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+
+    /* Milk layer */
+    .cup-milk {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 45%;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F5 100%);
+    }
+
+    /* Marble swirl matcha layer [cite: 35] */
+    .cup-matcha {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 60%;
+      background: linear-gradient(180deg, #3B6B4F 0%, #528E6B 70%, #A2C29A 100%);
+      border-radius: 0 0 30% 30%;
+    }
+
+    /* Condensation droplets [cite: 36] */
+    .droplet {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.4);
+      width: 3px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .drop1 { top: 30%; left: 25%; }
+    .drop2 { top: 55%; left: 70%; height: 20px; }
+    .drop3 { top: 70%; left: 40%; }
+
+    /* The Matcha Milk Bread (Right) [cite: 36] */
+    .bread-container {
+      position: absolute;
+      right: 12%;
+      bottom: 15%;
+      width: 170px;
+      height: 170px;
+      background: #EED9C4; /* Soft bread crust */
+      border-radius: 50% 50% 20% 20% / 40% 40% 20% 20%;
+      box-shadow: 5px 15px 30px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid #DFBE9B;
+    }
+
+    /* Marbled interior swirl [cite: 36] */
+    .bread-swirl {
+      width: 80%;
+      height: 80%;
+      background: #FCF7F0;
+      border-radius: 50% 50% 20% 20%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swirl-green {
+      position: absolute;
+      width: 140%;
+      height: 60%;
+      background: #4B7D5F;
+      top: 20%;
+      left: -20%;
+      border-radius: 50%;
+      transform: rotate(-25deg);
+    }
+
+    .swirl-green-2 {
+      position: absolute;
+      width: 80%;
+      height: 40%;
+      background: #2D583F;
+      top: 45%;
+      left: 10%;
+      border-radius: 50%;
+      transform: rotate(15deg);
+    }
+
+    /* Bamboo Whisk Background Detail [cite: 37] */
+    .whisk-shadow {
+      position: absolute;
+      top: 15%;
+      right: 20%;
+      opacity: 0.15;
+      transform: rotate(45deg);
+    }
+
+    /* --- TRUST BADGES --- */
+    .trust-badges {
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding: 2.5rem 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Centered below-the-fold [cite: 38] */
+      gap: 3rem;
+    }
+
+    .badge-card {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .badge-icon {
+      font-size: 1.8rem;
+      background: rgba(212, 189, 150, 0.15); /* Soft accent bg [cite: 32] */
+      padding: 0.5rem;
+      border-radius: 12px;
+      line-height: 1;
+    }
+
+    .badge-info h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary-green);
+      margin-bottom: 0.3rem;
+    }
+
+    .badge-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 1024px) {
+      header { padding: 1.5rem 2rem; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 3rem;
+        text-align: center;
+      }
+      .hero-content { align-items: center; }
+      .subheadline { max-width: 100%; }
+      .hero-visual { height: 400px; width: 100%; max-width: 500px; margin: 0 auto; }
+      .trust-badges {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">MatChaDa<span>まっちゃだ</span></a> <nav>
+      <a href="#menu">Menu</a>
+      <a href="#story">Our Story</a>
+      <a href="#delivery">CDO Delivery</a> </nav>
+    <a href="#order" class="btn-outline">🛒 Order Now</a> </header>
+
+  <main class="hero">
+    
+    <section class="hero-content">
+      <span class="kicker">🇯🇵 PREMIUM UJI MATCHA • FRESHLY WHISKED FOR CDO</span>
+      
+      <h1 class="headline">
+        Oishii! Tsada!<br>
+        <span>MatChaDa!</span> 🍵✨
+      </h1>
+      
+      <p class="subheadline">
+        Indulge in the ultimate <em>mochi-mochi</em> (chewy) matcha artisanal breads paired with our signature marbled matcha lattes. 100% Premium Uji Matcha, whisked fresh daily. </p>
+
+      <div class="price-badge">
+        💸 <strong>Chada sa Bulsa:</strong> Premium 22oz Lattes starting at only <strong>₱165!</strong> </div>
+
+      <div class="cta-group">
+        <a href="#order" class="btn-solid">🛵 Get It Delivered Now</a> <a href="#menu" class="btn-text">View Menu ➔</a> </div>
+    </section>
+
+    <section class="hero-visual">
+      <svg class="whisk-shadow" width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+        <path d="M50 10 L50 90 M20 30 C35 50, 65 50, 80 30 M30 20 C40 60, 60 60, 70 20" stroke-width="2"/>
+      </svg>
+      
+      <div class="cup-container">
+        <div class="cup-matcha"></div>
+        <div class="cup-milk"></div>
+        <div class="droplet drop1"></div>
+        <div class="droplet drop2"></div>
+        <div class="droplet drop3"></div>
+      </div>
+
+      <div class="bread-container">
+        <div class="bread-swirl">
+          <div class="swirl-green"></div>
+          <div class="swirl-green-2"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="trust-badges">
+    <div class="badge-card">
+      <div class="badge-icon">🇯🇵</div>
+      <div class="badge-info">
+        <h4>100% Uji Matcha</h4>
+        <p>Sourced directly from Kyoto, Japan for authentic, rich flavor. </p>
+      </div>
+    </div>
+
+    <div class="badge-card">
+      <div class="badge-icon">🥖</div>
+      <div class="badge-info">
+        <h4>Baked Fresh Daily</h4>
+        <p>No artificial preservatives, just pure, fluffy mochi-mochi goodness. </p>
+      </div>
+    </div>
+
+    <div class="badge-card">
+      <div class="badge-icon">🛵</div>
+      <div class="badge-info">
+        <h4>CDO-Wide Delivery</h4>
+        <p>Delivered fresh directly to Downtown, Uptown, and neighboring areas. </p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
